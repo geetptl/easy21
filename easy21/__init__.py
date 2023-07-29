@@ -1,1 +1,1 @@
-import game as e21
+import easy21.game as e21

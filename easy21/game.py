@@ -78,24 +78,26 @@ class Game:
                     pass
                 else:
                     self.is_game_over = True
+                    self.is_players_turn = False
                     self.game_result = Result.LOST
 
                 return self.state
             else:
                 self.is_players_turn = False
         else:
-            if self.dealer_score >= 17:
-                self.is_game_over = True
-                score = self.player_score - self.dealer_score
-                self.game_result = Result.WON if score > 0 else Result.DRAW if score == 0 else Result.LOST
-            else:
-                drawn = Card()
-                print("dealer drawn " + str(drawn))
-                self.dealer_score += drawn.value if drawn.colour is Colour.BLACK else -1 * drawn.value
-                if 1 <= self.dealer_score <= 21:
-                    pass
-                else:
+            dealer_state: State
+            while not self.is_game_over:
+                if self.dealer_score >= 17:
                     self.is_game_over = True
-                    self.game_result = Result.WON
-
-                return self.state
+                    score = self.player_score - self.dealer_score
+                    self.game_result = Result.WON if score > 0 else Result.DRAW if score == 0 else Result.LOST
+                else:
+                    drawn = Card()
+                    print("dealer drawn " + str(drawn))
+                    self.dealer_score += drawn.value if drawn.colour is Colour.BLACK else -1 * drawn.value
+                    if 1 <= self.dealer_score <= 21:
+                        pass
+                    else:
+                        self.is_game_over = True
+                        self.game_result = Result.WON
+            return self.state
