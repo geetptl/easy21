@@ -24,12 +24,10 @@ At any point dealer can choose to _STICK_, which means the scores are compared. 
 
 ## Execution
 
-While the player plays, a simple strategy as a dealer is to _STICK_ if the score crosses `17`, _HIT_ otherwise.
+When the player's turn is over, a simple strategy for the dealer is to _STICK_ if the score crosses `17`, _HIT_ otherwise.
 
-Cards are uniformly distributed from 1 to 10, and the frequency for drawing red vs black is weighed `1:2`.
+Cards are uniformly distributed from 1 to 10, and the frequency for drawing red vs black is weighed `1:2`. This is implemented [here](easy21/game.py) in `Card.__init__` and `Card.score`.
 
-This is implemented [here](easy21/game.py) in `Game::step`.
-
-You can play single player mode with this dealer by running the following command in this directory.
+You can play single player mode with the stated dealer by running the following command in this directory.
 
     `python3 repl.py`
