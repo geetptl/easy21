@@ -1,11 +1,17 @@
 from easy21 import e21
+import inquirer
 
 if __name__ == '__main__':
     print("Starting game...")
     game_instance = e21.Game()
     while game_instance.is_players_turn:
         print("Current state >", game_instance.state)
-        action = input("Enter action > ")
+        answer = inquirer.prompt([
+            inquirer.List(
+                'act', message="Enter your move", choices=['hit', 'stick']
+            )
+        ])
+        action = answer["act"]
         if action.lower() == "hit":
             action_ = e21.Action.HIT
         elif action.lower() == "stick":
@@ -18,3 +24,4 @@ if __name__ == '__main__':
         game_instance.step(action=None)
 
     print(game_instance)
+    print(game_instance.state.result)
