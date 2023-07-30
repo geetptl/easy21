@@ -33,6 +33,10 @@ class Card:
         self.value = random.randint(1, 10)
         self.colour = random.choices(COLOURS, weights=COLOURS_DISTRIBUTION_WEIGHTS, k=1)[0]
 
+    @property
+    def score(self):
+        return self.value if self.colour is Colour.BLACK else -1 * self.value
+
 
 @dataclass
 class State:
@@ -73,7 +77,7 @@ class Game:
             if action == Action.HIT:
                 drawn = Card()
                 print("player drawn " + str(drawn))
-                self.player_score += drawn.value if drawn.colour is Colour.BLACK else -1 * drawn.value
+                self.player_score += drawn.score
                 if 1 <= self.player_score <= 21:
                     pass
                 else:
@@ -94,7 +98,7 @@ class Game:
                 else:
                     drawn = Card()
                     print("dealer drawn " + str(drawn))
-                    self.dealer_score += drawn.value if drawn.colour is Colour.BLACK else -1 * drawn.value
+                    self.dealer_score += drawn.score
                     if 1 <= self.dealer_score <= 21:
                         pass
                     else:
